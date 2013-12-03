@@ -26,8 +26,10 @@ Requires
 Usage
 =====
 
-<code>chmod u+x make-image-map.sh</code>
-<code>./make-image-map.sh (name of input image) (name of output folder)</code>
+```
+chmod u+x make-image-map.sh
+./make-image-map.sh (name of input image) (name of output folder)
+```
 
 TODO
 ====
