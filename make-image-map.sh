@@ -21,12 +21,15 @@ MAP_BASE=256
 MAP_LARGEST=0
 ZOOM=0
 
+LOOP_START=0
+MAX_PWR=16
+
 # Test if height is the bigger axis
-if (( $START_HEIGHT > $START_WIDTH )); then
+if (( $START_HEIGHT >= $START_WIDTH )); then
 	echo "Start height is bigger"
-	for i in {0..10}; do
+	for (( i=0; i <=$MAX_PWR; i++ )); do
 		PWR=$(echo "2^$i" | bc)
-		MAP_LARGEST=$(($MAP_BASE * $PWR))
+		MAP_LARGEST=$(echo "$MAP_BASE*$PWR" | bc)
 		if (( $MAP_LARGEST >= $START_HEIGHT )); then
 			END_HEIGHT=$MAP_LARGEST
 			END_WIDTH=$(echo "$MAP_LARGEST / $START_HEIGHT * $START_WIDTH" | bc -l)
@@ -40,9 +43,9 @@ fi
 # Test if height is the width axis
 if (( $START_WIDTH > $START_HEIGHT )); then
 	echo "Start width is bigger"
-	for i in {0..10}; do
+	for (( i=0; i <=$MAX_PWR; i++ )); do
 		PWR=$(echo "2^$i" | bc)
-		MAP_LARGEST=$(($MAP_BASE * $PWR))
+		MAP_LARGEST=$(echo "$MAP_BASE*$PWR" | bc)
 		if (( $MAP_LARGEST >= $START_WIDTH )); then
 			END_WIDTH=$MAP_LARGEST
 			END_HEIGHT=$(echo "$MAP_LARGEST/$START_WIDTH.0*$START_HEIGHT" | bc -l)
